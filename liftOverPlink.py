@@ -94,7 +94,7 @@ def liftDat(fin, fout):
 
 def liftPed(fin, fout, fOldMap):
     # two ways to do it:
-    # 1. write unlifted snp list
+    # 1. write unlifted SNP list
     #    use PLINK to do this job using --exclude
     # 2. alternatively, we can write our own method
     # we will use method 2
@@ -103,20 +103,15 @@ def liftPed(fin, fout, fOldMap):
     # print marker[:10]
     # print flag[:10]
     fo = open(fout, 'w')
-    print "Updating PED file..."
+    print("Updating PED file...")
     for ln in myopen(fin):
         f = ln.strip().split()
         l = len(f)
-        f = f[:6] + [ f[i*2] + ' '+f[i*2 +1] for i in xrange(3, l/2 )]
-        fo.write('\t'.join(f[:6]))
-        fo.write('\t')
+        f = f[:6] + f[6:]  # Keep SNP markers as they are
+        fo.write('\t'.join(f))
+        fo.write('\n')
         if len(f[6:]) != len(flag):
             die('Inconsistent length of ped and map files')
-        newMarker = [m for i, m in enumerate(f[6:]) if flag[i]]
-        fo.write('\t'.join(newMarker))
-        fo.write('\n')
-        #print marker[:10]
-        #die('test')
     return True
 
 def makesure(result, succ_msg, fail_msg = "ERROR"):
