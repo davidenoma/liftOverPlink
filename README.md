@@ -156,3 +156,7 @@ plink --file genotypes --recode --out lifted --exclude bad_lifted.dat
 plink --ped lifted.ped --map good_lifted.map --recode --out final
 ```
 
+
+The original Michigan code: 
+https://genome.sph.umich.edu/wiki/LiftMap.py 
+
